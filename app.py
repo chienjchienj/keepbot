@@ -1,4 +1,3 @@
-
 import urllib
 import os
 from fbmq import Page,Attachment
@@ -6,6 +5,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 page = Page(os.getenv('PAGE_TOKEN',''))
+
 
 
 @app.route("/")
@@ -39,7 +39,8 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
-    attachments= event.message_attachments
+    attachments = message.get("attachments")
+    print(attachments)
     if attachments:
         for attachment_item in attachments:
             print(attachment_item)
