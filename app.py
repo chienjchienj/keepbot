@@ -10,9 +10,25 @@ page = Page(os.getenv('PAGE_TOKEN',''))
 def hello():
     return "Hello World!"
 
+
+@app.route('/webhook', methods=['GET'])
+def webhook_get():
+    print(request.get_data(as_text=True))
+    mode=request.args.get('hub.mode')
+    token = request.args.get('hub.verify_token')
+    challenge = request.args.get('hub.challenge')
+
+    if mode=='subscribe' & token=='okk':
+        return challenge
+    else:
+        return "wrong token"
+
+
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
     print(request.get_data(as_text=True))
+    # page.handle_webhook(request.get_data(as_text=True))
     return "ok"
 
 
