@@ -1,5 +1,6 @@
+import urllib
 import os
-from fbmq import Page
+from fbmq import Page,Attachment
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -38,8 +39,17 @@ def message_handler(event):
     sender_id = event.sender_id
     message = event.message_text
     attachments= event.message_attachments
-    print(attachments)
-    page.send(sender_id, "thank you! your message is '%s'" % message)
+    if attachments:
+        for attachment_item in attachments:
+            if attachment_item.type=='image':
+                file_url=attachment_item.payload.url;
+                testfile = urllib.URLopener()
+                testfile.retrieve(file_url, "image.jpg")
+                page.send(sender_id, Attachment.Image(file_url))
+                print("saved==>"+file_url)
+
+    else:
+        page.send(sender_id, "thank you! your message is '%s'" % message)
 
 
 @page.after_send
