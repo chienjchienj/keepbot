@@ -1,8 +1,9 @@
+import os
 from fbmq import Page
 from flask import Flask, request
 
 app = Flask(__name__)
-page = Page("")
+page = Page(os.getenv('PAGE_TOKEN',''))
 
 
 @app.route("/")
@@ -11,7 +12,7 @@ def hello():
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    page.handle_webhook(request.get_data(as_text=True))
+    print(request.get_data(as_text=True))
     return "ok"
 
 
