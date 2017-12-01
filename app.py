@@ -1,3 +1,4 @@
+import json
 import urllib
 import os
 from fbmq import Page,Attachment
@@ -28,7 +29,7 @@ def webhook_get():
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    print(request.get_data(as_text=True))
+
     page.handle_webhook(request.get_data(as_text=True))
     return "ok"
 
@@ -38,7 +39,7 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
-    attachments= event.message_attachments
+    attachments= json.loads(event.message_attachments)
     print(attachments)
     if attachments:
         for attachment_item in attachments:
