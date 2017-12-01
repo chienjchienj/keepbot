@@ -1,4 +1,4 @@
-import json
+
 import urllib
 import os
 from fbmq import Page,Attachment
@@ -39,10 +39,10 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
-    attachments= json.loads(event.message_attachments)
-    print(attachments)
+    attachments= event.message_attachments
     if attachments:
         for attachment_item in attachments:
+            print(attachment_item)
             if attachment_item.type and attachment_item.type=='image':
                 file_url=attachment_item.payload.url;
                 testfile = urllib.URLopener()
