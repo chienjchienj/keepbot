@@ -39,12 +39,12 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
-    attachments = message.get("attachments")
+    attachments = event.message_attachments;
     print(attachments)
     if attachments:
         for attachment_item in attachments:
             print(attachment_item)
-            if attachment_item.type and attachment_item.type=='image':
+            if  attachment_item.get('type',None)=='image':
                 file_url=attachment_item.payload.url;
                 testfile = urllib.URLopener()
                 testfile.retrieve(file_url, "image.jpg")
