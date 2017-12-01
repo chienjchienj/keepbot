@@ -28,7 +28,7 @@ def webhook_get():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     print(request.get_data(as_text=True))
-    # page.handle_webhook(request.get_data(as_text=True))
+    page.handle_webhook(request.get_data(as_text=True))
     return "ok"
 
 
