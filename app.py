@@ -41,10 +41,11 @@ def message_handler(event):
     message = event.message_text
     attachments = event.message_attachments;
     print(attachments)
+    type(attachments)
     if attachments:
         for attachment_item in attachments:
             print(attachment_item)
-            print(type(attachment_item))
+            type(attachment_item)
             if  attachment_item.get('type',None)=='image':
                 file_url=attachment_item.get('payload').get('url');
                 testfile = urllib.URLopener()
