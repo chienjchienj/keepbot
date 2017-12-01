@@ -44,6 +44,7 @@ def message_handler(event):
     if attachments:
         for attachment_item in attachments:
             print(attachment_item)
+            print(type(attachment_item))
             if  attachment_item.get('type',None)=='image':
                 file_url=attachment_item.get('payload').get('url');
                 testfile = urllib.URLopener()
