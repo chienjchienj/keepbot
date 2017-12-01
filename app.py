@@ -18,7 +18,7 @@ def webhook_get():
     token = request.args.get('hub.verify_token')
     challenge = request.args.get('hub.challenge')
 
-    if mode=='subscribe' & token=='okk':
+    if mode=='subscribe' and token=='okk':
         return challenge
     else:
         return "wrong token"
